@@ -27,7 +27,7 @@ Namespace Controllers
 
             If obj.response = "CONFIRMAR" Then
                 '-- No retorno confirmando consulta
-                'update AGENDA_CLINICA set STATUS = 'CON' where id = id
+                cn.execute("update AGENDA_CLINICA set STATUS = 'CON' where id=" & obj.id)
 
                 'insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                 'values(MEDICO, Data, PERIODO, HORA, 4, getdate(), 0, 'WhatsAPP Confirma', 1)
