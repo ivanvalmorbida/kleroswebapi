@@ -26,24 +26,30 @@ Namespace Controllers
             Dim strSQL As String, cn As New Conexao
 
             If obj.response = "CONFIRMAR" Then
-                '-- No retorno confirmando consulta
+                'No retorno confirmando consulta
                 cn.execute("update AGENDA_CLINICA set STATUS = 'CON' where id=" & obj.id)
 
-                'insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                'values(MEDICO, Data, PERIODO, HORA, 4, getdate(), 0, 'WhatsAPP Confirma', 1)
+                cn.execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
+                'select MEDICO, Data, PERIODO, HORA, 4 evento, getdate() alterado, 
+                0 funcionario, 'WhatsAPP Confirma' historico, 1 tipo from agenda
+                where id=" & obj.id)
 
             Else
+                'No retorno Cancelando consulta
+                cn.execute("Update AGENDA_CLINICA set NOMEPACI='',PACIENTE=0,TIPO_ATENDIMENTO=0,FONEPACI='',
+                TONOMETRIA=0,MAPRETINA=0, ACUIDADE = 0,CONVENIO=0, STATUS='', 
+                SECRETARIA=0,OBSERVACAO='',REQUISICAO=0,REQUISICAO_TONO=0,REQUISICAO_MAP=0, 
+                REQUISICAO_ACUIDADE = 0,UTILIZADO=0, TIPO_LENTE_USO=0, TIPO_ATENDIMENTO_ABRANGE = -1, 
+                AUTORIZACAO = '', RG = '',GUIA=0, NRCONVENIO='', GONIOSCOPIA=0, MOTILIDADE= 0, 
+                REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, CodigoClube=0, EsteticistaAtividade=0, 
+                CONVENIO_PLANO='' Where ID = ID")
 
-                '-- No retorno Cancelando consulta
-                'Update AGENDA_CLINICA set NOMEPACI='',PACIENTE=0,TIPO_ATENDIMENTO=0,FONEPACI='',TONOMETRIA=0,MAPRETINA=0, ACUIDADE = 0,CONVENIO=0, STATUS='" & Trim(CONVENIO_HORARIO) & "', SECRETARIA=0,OBSERVACAO='',REQUISICAO=0,REQUISICAO_TONO=0,REQUISICAO_MAP=0, REQUISICAO_ACUIDADE = 0,UTILIZADO=0, TIPO_LENTE_USO=0, TIPO_ATENDIMENTO_ABRANGE = -1, AUTORIZACAO = '', RG = '',GUIA=0, NRCONVENIO='', GONIOSCOPIA=0, MOTILIDADE= 0, REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, CodigoClube=0, EsteticistaAtividade=0 "     ', CONVENIO_PLANO=''
-                'Where ID = ID
-
-                'insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                'values(MEDICO, Data, PERIODO, HORA, 2, getdate(), 0, 'Paciente: ' & NomePaciente & ' Motivo: WhatsAPP Cancelou', 1)
-
+                cn.execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
+                'values(MEDICO, Data, PERIODO, HORA, 2, getdate(), 0, 'Paciente: 
+                ' & NomePaciente & ' Motivo: WhatsAPP Cancelou', 1)")
             End If
-
-
         End Sub
 
         ' PUT: api/ConfirmaConsulta/5

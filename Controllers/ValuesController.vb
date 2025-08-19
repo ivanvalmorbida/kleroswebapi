@@ -13,7 +13,13 @@ Public Class ValuesController
 
     ' GET api/values/5
     Public Function GetValue(ByVal id As Integer) As String
-        Return "ValueX"
+        Dim arr2(), strKey As String, coll As NameValueCollection
+
+        coll = HttpContext.Current.Request.Headers
+        arr2 = coll.GetValues("keyXXX")
+        strKey = arr2(0)
+
+        If strKey = "Ivanluis###" Then Return "ValueX" Else Return ""
     End Function
 
     ' POST api/values
