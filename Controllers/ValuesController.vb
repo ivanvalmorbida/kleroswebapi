@@ -17,9 +17,15 @@ Public Class ValuesController
 
         coll = HttpContext.Current.Request.Headers
         arr2 = coll.GetValues("keyXXX")
-        strKey = arr2(0)
+        If Not IsNothing(arr2) Then strKey = arr2(0) Else strKey = ""
 
-        If strKey = "Ivanluis###" Then Return "ValueX" Else Return ""
+        If strKey = "Ivanluis###" Then
+            Return "ValueX"
+        Else
+            Throw New HttpResponseException(Request.CreateResponse(
+            HttpStatusCode.Unauthorized,
+            "Usuário não autorizado"))
+        End If
     End Function
 
     ' POST api/values
