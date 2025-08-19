@@ -23,7 +23,7 @@ Namespace Controllers
 
         ' POST: api/ConfirmaConsulta
         Public Sub PostValue(<FromBody()> ByVal obj As cConfirmacaoConsulta)
-            Dim strSQL As String, cn As New Conexao
+            Dim cn As New Conexao
 
             If obj.response = "CONFIRMAR" Then
                 'No retorno confirmando consulta

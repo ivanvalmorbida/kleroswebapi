@@ -24,13 +24,15 @@ Namespace Controllers
 
         ' POST: api/ConfirmaEnvioMsg
         Public Sub PostValue(<FromBody()> ByVal obj As cConfirmaEnvioMsg)
-            Dim strSQL As String, cn As New Conexao
-
+            Dim cn As New Conexao
             '-- Na confirmação do envio da MSG para 48 horas
-            'update AGENDA_CLINICA set STATUS = 'WS1' where id = id
+                cn.execute("update AGENDA_CLINICA set STATUS = 'WS1' Where id=" & obj.id)
 
-            'insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-            'values(MEDICO, Data, PERIODO, HORA, 4, getdate(), 999, 'Anterior -> ' & StatusAnterior & 'Novo -> WhatsAPP msg 48h', 1)
+                cn.execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
+                'select MEDICO, Data, PERIODO, HORA, 999 evento, getdate() alterado, 
+                0 funcionario, 'WhatsAPP Enviou Msg '"& obj.sended &" historico, 1 tipo from agenda
+                where id=" & obj.id)
 
         End Sub
 
