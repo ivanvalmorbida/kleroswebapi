@@ -1,4 +1,4 @@
-﻿Imports System.Net
+Imports System.Net
 Imports System.Web.Http
 
 Namespace Controllers
@@ -25,21 +25,25 @@ Namespace Controllers
         ' POST: api/ConfirmaEnvioMsg
         Public Sub PostValue(<FromBody()> ByVal obj As cConfirmaEnvioMsg)
             Dim cn As New Conexao
+            If obj.sended Then
+                'Na confirmação do envio da MSG para 48 horas
+                cn.Execute("update AGENDA_CLINICA set STATUS = 'WS1' Where id=" & obj.id)
 
-                        '-- Na confirmação do envio da MSG para 48 horas
-                cn.execute("update AGENDA_CLINICA set STATUS = 'WS1' Where id=" & obj.id)
-
-                cn.execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                 'select MEDICO, Data, PERIODO, HORA, 999 evento, getdate() alterado, 
-                0 funcionario, 'WhatsAPP Enviou Msg '"& obj.sended &" historico, 1 tipo from agenda
+                0 funcionario, 'WhatsAPP Enviou Msg' historico, 1 tipo from agenda
                 where id=" & obj.id)
-                
+            Else
                 'Caso de erro no envio
-                cn.execute("update AGENDA_CLINICA set STATUS = 'WS1' Where id=" & obj.id)
-                cn.execute("insert into TRILHA_AGENDA (MEDICO, DATA, PERIODO, HORA, EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                    values (MEDICO, DATA, PERIODO, HORA, 4,  getdate(),  0 , 'Anterior -> ' & StatusAnterior & 'Novo -> WhatsAPP erro 48h Msg: ' & MsgErroRetorno, 1)"
+                cn.Execute("update AGENDA_CLINICA set STATUS = 'WX1' Where id=" & obj.id)
 
+                cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
+                'select MEDICO, Data, PERIODO, HORA, 4 evento, getdate() alterado, 
+                0 funcionario, 'WhatsAPP Erro Msg " & obj.erro & "' historico, 1 tipo from agenda
+                where id=" & obj.id)
+            End If
         End Sub
 
         ' PUT: api/ConfirmaEnvioMsg/5
