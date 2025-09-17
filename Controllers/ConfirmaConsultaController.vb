@@ -1,5 +1,5 @@
-﻿Imports System.Net
 Imports System.Web.Http
+﻿Imports System.Net
 
 Namespace Controllers
     Public Class cConfirmacaoConsulta
@@ -31,7 +31,7 @@ Namespace Controllers
 
                 cn.execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                'select MEDICO, Data, PERIODO, HORA, 4 evento, getdate() alterado, 
+                select MEDICO, Data, PERIODO, HORA, 4 evento, getdate() alterado, 
                 0 funcionario, 'WhatsAPP Confirma' historico, 1 tipo from agenda
                 where id=" & obj.id)
 
@@ -47,8 +47,7 @@ Namespace Controllers
 
                 cn.execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                'values(MEDICO, Data, PERIODO, HORA, 2, getdate(), 0, 'Paciente: 
-                ' & NomePaciente & ' Motivo: WhatsAPP Cancelou', 1)")
+                values(MEDICO, Data, PERIODO, HORA, 2, getdate(), 0, 'Motivo: WhatsAPP Cancelou', 1)")
             End If
         End Sub
 
