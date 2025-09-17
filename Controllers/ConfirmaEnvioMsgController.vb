@@ -31,7 +31,7 @@ Namespace Controllers
 
                 cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                'select MEDICO, Data, PERIODO, HORA, 999 evento, getdate() alterado, 
+                select MEDICO, Data, PERIODO, HORA, 999 evento, getdate() alterado, 
                 0 funcionario, 'WhatsAPP Enviou Msg' historico, 1 tipo from agenda
                 where id=" & obj.id)
             Else
@@ -40,7 +40,7 @@ Namespace Controllers
 
                 cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                'select MEDICO, Data, PERIODO, HORA, 4 evento, getdate() alterado, 
+                select MEDICO, Data, PERIODO, HORA, 4 evento, getdate() alterado, 
                 0 funcionario, 'WhatsAPP Erro Msg " & obj.erro & "' historico, 1 tipo from agenda
                 where id=" & obj.id)
             End If
