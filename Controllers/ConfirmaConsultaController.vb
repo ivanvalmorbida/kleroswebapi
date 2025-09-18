@@ -1,5 +1,5 @@
+Imports System.Net
 Imports System.Web.Http
-﻿Imports System.Net
 
 Namespace Controllers
     Public Class cConfirmacaoConsulta

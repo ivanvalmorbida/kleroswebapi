@@ -22,9 +22,9 @@ Public Class ValuesController
         If strKey = "Ivanluis###" Then
             Return "ValueX"
         Else
-            Throw New HttpResponseException(Request.CreateResponse(
-            HttpStatusCode.Unauthorized,
-            "Usuário não autorizado"))
+            'Throw New HttpResponseException(Request.CreateResponse(
+            'HttpStatusCode.Unauthorized,
+            '"Usuário não autorizado"))
         End If
     End Function
 
