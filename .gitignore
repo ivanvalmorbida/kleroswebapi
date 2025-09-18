@@ -4,3 +4,7 @@ obj/Debug/KlerosWebApi.Resources.resources
 obj/Debug/KlerosWebApi.vbproj.CoreCompileInputs.cache
 obj/Debug/KlerosWebApi.vbproj.FileListAbsolute.txt
 obj/Debug/KlerosWebApi.vbproj.GenerateResource.cache
+/bin
+/obj/Debug
+/.vs/kleroswebapi/FileContentIndex
+/.vs/kleroswebapi/v17
