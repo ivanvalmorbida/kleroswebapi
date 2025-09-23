@@ -32,7 +32,7 @@ Namespace Controllers
                 cn.execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                 select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
-                0 funcionario, 'WhatsAPP Confirma' historico, 1 tipo from AGENDA_CLINICA
+                0 funcionario, ' Motivo: WhatsAPP Confirma' historico, 1 tipo from AGENDA_CLINICA
                 where id=" & obj.id)
 
             Else
@@ -48,7 +48,7 @@ Namespace Controllers
                 cn.execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                 select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
-                0 funcionario, 'WhatsAPP Cancelou' historico, 1 tipo from AGENDA_CLINICA
+                0 funcionario, ' Motivo: WhatsAPP Cancelou '+NOMEPACI historico, 1 tipo from AGENDA_CLINICA
                 where id=" & obj.id)
             End If
         End Sub
