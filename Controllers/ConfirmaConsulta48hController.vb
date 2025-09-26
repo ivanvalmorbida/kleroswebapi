@@ -27,7 +27,8 @@ Namespace Controllers
                         from Agenda_clinica ac
                         inner join medico m on m.codigo = ac.medico	
                         inner join CLIENTE c on c.codigo = 3
-                        where year(DATA_CONSULTA) = YEAR(GETdate()) and month(data_consulta)= month(getdate()) and DAY(data_consulta) = day(getdate()) + 2
+                        where DATA_CONSULTA = dateadd(DD, +2,cast(getdate() as date))
+                        and PERIODO <> 3
                         and len(rtrim(celular))>0
                         and isnull(nomepaci, '') > ''
                         and TIPO_ATENDIMENTO in (1,2,3,6,7)
