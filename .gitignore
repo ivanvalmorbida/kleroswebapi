@@ -8,3 +8,5 @@ obj/Debug/KlerosWebApi.vbproj.GenerateResource.cache
 /obj/Debug
 /.vs/kleroswebapi/FileContentIndex
 /.vs/kleroswebapi/v17
+/.vs/kleroswebapi/config/applicationhost.config
+/obj/Release
