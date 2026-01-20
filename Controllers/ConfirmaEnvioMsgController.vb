@@ -31,8 +31,8 @@ Namespace Controllers
 
                 cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                select MEDICO, DATA_CONSULTA, PERIODO, HORA, 999 evento, getdate() alterado, 
-                0 funcionario, 'WhatsAPP Enviou Msg' historico, 1 tipo from AGENDA_CLINICA
+                select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
+                0 funcionario, 'Novo -> WhatsAPP msg 48h' historico, 1 tipo from AGENDA_CLINICA
                 where id=" & obj.id)
             Else
                 'Caso de erro no envio
@@ -41,7 +41,7 @@ Namespace Controllers
                 cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                 select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
-                0 funcionario, 'WhatsAPP Erro Enviou Msg " & obj.erro & "' historico, 1 tipo 
+                0 funcionario, 'Novo -> WhatsAPP erro 48h Msg: " & obj.erro & "' historico, 1 tipo 
                 from AGENDA_CLINICA where id=" & obj.id)
             End If
         End Sub
