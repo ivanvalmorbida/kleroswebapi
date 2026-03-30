@@ -32,7 +32,7 @@ Namespace Controllers
                         and len(rtrim(celular))>0
                         and isnull(nomepaci, '') > ''
                         and TIPO_ATENDIMENTO in (1,2,3,6,7)
-                        and status <> 'CON'
+                        and status <> 'CON' and status <> 'CAN'
                         order by HORA"
 
             sqlReader = cn.OpenReader(strSQL)
