@@ -190,6 +190,7 @@
     <Compile Include="Controllers\ConfirmaConsultaController.vb" />
     <Compile Include="Controllers\ConfirmaEnvioMsgController.vb" />
     <Compile Include="Controllers\ConvenioWebController.vb" />
+    <Compile Include="Controllers\HorariosLivresController.vb" />
     <Compile Include="Controllers\MedicoWebController.vb" />
     <Compile Include="Controllers\PacienteChamadaController.vb" />
     <Compile Include="Controllers\PacienteCPFController.vb" />
@@ -334,6 +335,7 @@
     <Folder Include="Models\" />
     <Folder Include="Properties\" />
     <Folder Include="Views\ConvenioWeb\" />
+    <Folder Include="Views\HorariosLivres\" />
     <Folder Include="Views\MedicoWeb\" />
     <Folder Include="Views\PacienteCPF\" />
     <Folder Include="Views\Paciente\" />

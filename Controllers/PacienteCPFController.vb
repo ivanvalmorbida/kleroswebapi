@@ -16,11 +16,6 @@ Namespace Controllers
     Public Class PacienteCPFController
         Inherits ApiController
 
-        '' GET: api/PacienteCPF
-        'Public Function GetValues() As IEnumerable(Of String)
-        '    Return New String() {"value1", "value2"}
-        'End Function
-
         ' GET: api/PacienteCPF/123456789
         Public Function GetValue(ByVal id As Integer) As cPacienteCPF
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
