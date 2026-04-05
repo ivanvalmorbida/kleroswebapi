@@ -1,6 +1,5 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Web.Http
-Imports System.Web.Mvc
 
 Namespace Controllers
     Public Class cConvenioWeb

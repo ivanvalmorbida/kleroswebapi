@@ -1,6 +1,5 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Web.Http
-Imports System.Web.Mvc
 
 Namespace Controllers
     Public Class cMedicoWeb
@@ -12,7 +11,7 @@ Namespace Controllers
     Public Class MedicoWebController
         Inherits ApiController
 
-        ' GET: api/ConvenioWeb
+        ' GET: api/MedicoWeb
         Public Function GetValues() As List(Of cMedicoWeb)
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim r As New List(Of cMedicoWeb)

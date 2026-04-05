@@ -193,6 +193,7 @@
     <Compile Include="Controllers\MedicoWebController.vb" />
     <Compile Include="Controllers\PacienteChamadaController.vb" />
     <Compile Include="Controllers\PacienteCPFController.vb" />
+    <Compile Include="Controllers\UltimaConsultaController.vb" />
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -336,6 +337,7 @@
     <Folder Include="Views\MedicoWeb\" />
     <Folder Include="Views\PacienteCPF\" />
     <Folder Include="Views\Paciente\" />
+    <Folder Include="Views\UltimaConsulta\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
