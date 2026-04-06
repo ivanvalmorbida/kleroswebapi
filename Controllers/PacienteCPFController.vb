@@ -17,7 +17,7 @@ Namespace Controllers
         Inherits ApiController
 
         ' GET: api/PacienteCPF/123456789
-        Public Function GetValue(ByVal id As Integer) As cPacienteCPF
+        Public Function GetValue(ByVal id As String) As cPacienteCPF
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim sqlPar As New SqlParameter, colPar As New Collection
             Dim r As New cPacienteCPF
@@ -32,8 +32,7 @@ Namespace Controllers
                 c.codigo as ConvenioCodigo, c.nome as ConvenioNome 
                 from paciente p
                 inner join convenio c on c.codigo = CONVENIO
-                where CNPJCPF = @cpf PacienteCNPJCPF
-                order by DataChamada desc"
+                where CNPJCPF = @cpf"
 
             sqlReader = cn.OpenReaderWithParam(strSQL, colPar)
             If sqlReader.Read Then
