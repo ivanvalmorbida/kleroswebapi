@@ -1,15 +1,58 @@
-﻿Imports System.Web.Mvc
+﻿Imports System.Web.Http
+Imports System.Web.Mvc
 
 Namespace Controllers
     Public Class AgendarConsultaController
-        Inherits Controller
+        Inherits ApiController
+        'IdAgenda
+        'IdPaciente
+        'NomePaciente
+        'IdConvenio
+        'Celular
+        'DataNascim
+        'CPFPaciente
 
-        ' GET: AgendarConsulta
-        Function Index() As ActionResult
-            Return View()
-        End Function
+        Public Class cConfirmacaoConsulta
+            Public Property id As Integer
+            Public Property response As String  'CONFIRMAR ou DESMARCAR
+            Public Property type As String
+        End Class
+
+        Public Sub PostValue(<FromBody()> ByVal obj As cConfirmacaoConsulta)
+            Dim cn As New Conexao
+
+            If obj.response = "CONFIRMAR" Then
+                'No retorno confirmando consulta
+                cn.Execute("update AGENDA_CLINICA set STATUS = 'CON' where id=" & obj.id)
+
+                cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
+                select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
+                0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Confirma' historico, 1 tipo from AGENDA_CLINICA
+                where id=" & obj.id)
+
+            Else
+                'No retorno Cancelando consulta
+                cn.Execute("Update AGENDA_CLINICA set NOMEPACI='',PACIENTE=0,TIPO_ATENDIMENTO=0,FONEPACI='',
+                TONOMETRIA=0,MAPRETINA=0, ACUIDADE = 0,CONVENIO=0, STATUS='', 
+                SECRETARIA=0,OBSERVACAO='',REQUISICAO=0,REQUISICAO_TONO=0,REQUISICAO_MAP=0, 
+                REQUISICAO_ACUIDADE = 0,UTILIZADO=0, TIPO_LENTE_USO=0, TIPO_ATENDIMENTO_ABRANGE = -1, 
+                AUTORIZACAO = '', RG = '',GUIA=0, NRCONVENIO='', GONIOSCOPIA=0, MOTILIDADE= 0, 
+                REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, CodigoClube=0, EsteticistaAtividade=0, 
+                CONVENIO_PLANO='' Where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and ID =" & obj.id)
+
+                cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
+                select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
+                0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Cancelou ' historico, 1 tipo from AGENDA_CLINICA
+                where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and id=" & obj.id)
+            End If
+        End Sub
+
     End Class
 End Namespace
+
+'
 
 
 'FALTA FAZER
