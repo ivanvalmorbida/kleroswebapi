@@ -1,54 +1,53 @@
-﻿Imports System.Web.Http
+﻿Imports System.Data.SqlClient
+Imports System.Web.Http
 Imports System.Web.Mvc
 
 Namespace Controllers
     Public Class AgendarConsultaController
         Inherits ApiController
-        'IdAgenda
-        'IdPaciente
-        'NomePaciente
-        'IdConvenio
-        'Celular
-        'DataNascim
-        'CPFPaciente
 
-        Public Class cConfirmacaoConsulta
-            Public Property id As Integer
-            Public Property response As String  'CONFIRMAR ou DESMARCAR
-            Public Property type As String
+        Public Class cAgendarConsulta
+            Public Property IdAgenda As Integer
+            Public Property IdPaciente As Integer
+            Public Property IdConvenio As Integer
+            Public Property NomePaciente As String
+            Public Property Celular As String
+            Public Property CPFPaciente As String
+            Public Property DataNascim As Date
         End Class
 
-        Public Sub PostValue(<FromBody()> ByVal obj As cConfirmacaoConsulta)
-            Dim cn As New Conexao
+        Public Function PostValue(ByVal obj As cAgendarConsulta) As IHttpActionResult
+            Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
+            Dim sqlPar As New SqlParameter, colPar As New Collection
+            Dim r As New cPacienteCPF
 
-            If obj.response = "CONFIRMAR" Then
-                'No retorno confirmando consulta
-                cn.Execute("update AGENDA_CLINICA set STATUS = 'CON' where id=" & obj.id)
+            sqlPar.DbType = DbType.String
+            sqlPar.Value = obj.IdAgenda
+            sqlPar.ParameterName = "@id"
+            colPar.Add(sqlPar)
+
+            strSQL = "Select id from Agenda_Clinica where id=@id And isnull(NomePaci, '') = ''"
+
+            sqlReader = cn.OpenReaderWithParam(strSQL, colPar)
+            If sqlReader.Read Then
+                sqlReader.Close()
+                cn.ExecuteWithParam("update AGENDA_CLINICA Set NOMEPACI=@Nome, CONVENIO=@Convenio, Celular=@Celular, 
+                OBSERVACAO=@DataNascim, STATUS='WA1', TIPO_ATENDIMENTO=2, SECRETARIA=0, 
+                TIPO_ATENDIMENTO_ABRANGE=4, Nacionalidade=0, CNPJCPF=@CPF where id=@id", colPar)
 
                 cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                 select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
-                0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Confirma' historico, 1 tipo from AGENDA_CLINICA
-                where id=" & obj.id)
-
+                0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: Novo -> WhatsAPP Agenda Consulta' historico, 1 tipo from AGENDA_CLINICA
+                where id=" & obj.IdAgenda)
             Else
-                'No retorno Cancelando consulta
-                cn.Execute("Update AGENDA_CLINICA set NOMEPACI='',PACIENTE=0,TIPO_ATENDIMENTO=0,FONEPACI='',
-                TONOMETRIA=0,MAPRETINA=0, ACUIDADE = 0,CONVENIO=0, STATUS='', 
-                SECRETARIA=0,OBSERVACAO='',REQUISICAO=0,REQUISICAO_TONO=0,REQUISICAO_MAP=0, 
-                REQUISICAO_ACUIDADE = 0,UTILIZADO=0, TIPO_LENTE_USO=0, TIPO_ATENDIMENTO_ABRANGE = -1, 
-                AUTORIZACAO = '', RG = '',GUIA=0, NRCONVENIO='', GONIOSCOPIA=0, MOTILIDADE= 0, 
-                REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, CodigoClube=0, EsteticistaAtividade=0, 
-                CONVENIO_PLANO='' Where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and ID =" & obj.id)
-
-                cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
-                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
-                0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Cancelou ' historico, 1 tipo from AGENDA_CLINICA
-                where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and id=" & obj.id)
+                Return BadRequest("Horario inválido")
+                sqlReader.Close()
             End If
-        End Sub
 
+            cn.CloseConection()
+            Return Ok("Consulta agendada com sucesso")
+        End Function
     End Class
 End Namespace
 
