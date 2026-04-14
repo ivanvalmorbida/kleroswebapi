@@ -185,6 +185,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.vb" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.vb" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.vb" />
+    <Compile Include="Controllers\AgendarConsultaController.vb" />
     <Compile Include="Controllers\Conexao.vb" />
     <Compile Include="Controllers\ConfirmaConsulta48hController.vb" />
     <Compile Include="Controllers\ConfirmaConsultaController.vb" />
@@ -334,6 +335,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\" />
+    <Folder Include="Views\AgendarConsulta\" />
     <Folder Include="Views\ConvenioWeb\" />
     <Folder Include="Views\HorariosLivres\" />
     <Folder Include="Views\MedicoWeb\" />

@@ -43,13 +43,13 @@ Namespace Controllers
                 REQUISICAO_ACUIDADE = 0,UTILIZADO=0, TIPO_LENTE_USO=0, TIPO_ATENDIMENTO_ABRANGE = -1, 
                 AUTORIZACAO = '', RG = '',GUIA=0, NRCONVENIO='', GONIOSCOPIA=0, MOTILIDADE= 0, 
                 REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, CodigoClube=0, EsteticistaAtividade=0, 
-                CONVENIO_PLANO='' Where STATUS not in('FCH','FAT','AGU','ESP','PRE') and ID =" & obj.id)
+                CONVENIO_PLANO='' Where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and ID =" & obj.id)
 
                 cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                 select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
                 0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Cancelou ' historico, 1 tipo from AGENDA_CLINICA
-                where STATUS not in('FCH','FAT','AGU','ESP','PRE') and id=" & obj.id)
+                where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and id=" & obj.id)
             End If
         End Sub
 
