@@ -1,19 +1,9 @@
-﻿Imports System.Web.Http
-Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
+Imports System.Web.Http
+Imports System.Web.Mvc
 
 Namespace Controllers
-    Public Class cConfirmaConsulta
-        Public Property ID As Integer
-        Public Property DATA_CONSULTA As Date
-        Public Property HORA As String
-        Public Property NOMEPACI As String
-        Public Property CELULAR As String
-        Public Property TIPOATENDIMENTO As String
-        Public Property MEDICONOME As String
-        Public Property ENDERECO As String
-        Public Property CLINICA As String
-    End Class
-    Public Class ConfirmaConsulta48hController
+    Public Class ConfirmaConsulta24hController
         Inherits ApiController
 
         ' GET: api/ConfirmaConsulta48h
@@ -21,7 +11,7 @@ Namespace Controllers
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim r As New List(Of cConfirmaConsulta)()
 
-            strSQL = strSQLConfirmaConsulta.Replace("{d}", "2")
+            strSQL = strSQLConfirmaConsulta.Replace("{d}", "1")
 
             sqlReader = cn.OpenReader(strSQL)
             While sqlReader.Read

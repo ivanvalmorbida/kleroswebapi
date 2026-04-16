@@ -3,16 +3,7 @@ Imports System.Web.Http
 Imports System.Web.Mvc
 
 Namespace Controllers
-    Public Class cHorariosLivres
-        Public Property ID As Integer
-        Public Property AgendaDataConsulta As String
-        Public Property AgendaDiaSemana As String
-        Public Property AgendaPeriodo As String
-        Public Property AgendaHora As String
-        Public Property AgendaObservacao As String
-
-    End Class
-    Public Class HorariosLivresController
+    Public Class HorariosLivres15Controller
         Inherits ApiController
         ' GET: api/ConvenioWeb
         Public Function GetValues(ByVal id As Integer) As List(Of cHorariosLivres)
@@ -25,7 +16,7 @@ Namespace Controllers
             sqlPar.ParameterName = "@med"
             colPar.Add(sqlPar)
 
-            strSQL = strSQLHorariosLivres.Replace("{d}", "8")
+            strSQL = strSQLHorariosLivres.Replace("{d}", "15")
 
             sqlReader = cn.OpenReaderWithParam(strSQL, colPar)
             While sqlReader.Read

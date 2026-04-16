@@ -187,12 +187,15 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.vb" />
     <Compile Include="Controllers\AgendarConsultaController.vb" />
     <Compile Include="Controllers\Conexao.vb" />
+    <Compile Include="Controllers\ConfirmaConsulta24hController.vb" />
     <Compile Include="Controllers\ConfirmaConsulta48hController.vb" />
     <Compile Include="Controllers\ConfirmaConsultaController.vb" />
     <Compile Include="Controllers\ConfirmaEnvioMsgController.vb" />
     <Compile Include="Controllers\ConvenioWebController.vb" />
+    <Compile Include="Controllers\HorariosLivres15Controller.vb" />
     <Compile Include="Controllers\HorariosLivresController.vb" />
     <Compile Include="Controllers\MedicoWebController.vb" />
+    <Compile Include="Controllers\Module1.vb" />
     <Compile Include="Controllers\PacienteChamadaController.vb" />
     <Compile Include="Controllers\PacienteCPFController.vb" />
     <Compile Include="Controllers\UltimaConsultaController.vb" />
@@ -336,7 +339,9 @@
     <Folder Include="Models\" />
     <Folder Include="Properties\" />
     <Folder Include="Views\AgendarConsulta\" />
+    <Folder Include="Views\ConfirmaConsulta24h\" />
     <Folder Include="Views\ConvenioWeb\" />
+    <Folder Include="Views\HorariosLivres15\" />
     <Folder Include="Views\HorariosLivres\" />
     <Folder Include="Views\MedicoWeb\" />
     <Folder Include="Views\PacienteCPF\" />
