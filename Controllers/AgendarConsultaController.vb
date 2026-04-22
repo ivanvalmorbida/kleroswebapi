@@ -48,6 +48,10 @@ Namespace Controllers
                 sqlPar.Value = obj.DataNascim
                 sqlPar.ParameterName = "@DataNascim"
                 colPar.Add(sqlPar)
+                sqlPar.DbType = DbType.String
+                sqlPar.Value = obj.CPFPaciente
+                sqlPar.ParameterName = "@CPF"
+                colPar.Add(sqlPar)
 
                 cn.ExecuteWithParam("update AGENDA_CLINICA Set NOMEPACI=@Nome, CONVENIO=@Convenio, Celular=@Celular, 
                 OBSERVACAO=@DataNascim, STATUS='WA1', TIPO_ATENDIMENTO=2, SECRETARIA=0, 
