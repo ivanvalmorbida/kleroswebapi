@@ -32,22 +32,27 @@ Namespace Controllers
             If sqlReader.Read Then
                 sqlReader.Close()
 
+                sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.String
                 sqlPar.Value = obj.NomePaciente
                 sqlPar.ParameterName = "@Nome"
                 colPar.Add(sqlPar)
+                sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.Int32
                 sqlPar.Value = obj.IdConvenio
                 sqlPar.ParameterName = "@Convenio"
                 colPar.Add(sqlPar)
+                sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.String
                 sqlPar.Value = obj.Celular
                 sqlPar.ParameterName = "@Celular"
                 colPar.Add(sqlPar)
+                sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.Date
                 sqlPar.Value = obj.DataNascim
                 sqlPar.ParameterName = "@DataNascim"
                 colPar.Add(sqlPar)
+                sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.String
                 sqlPar.Value = obj.CPFPaciente
                 sqlPar.ParameterName = "@CPF"
