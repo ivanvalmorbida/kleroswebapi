@@ -31,6 +31,24 @@ Namespace Controllers
             sqlReader = cn.OpenReaderWithParam(strSQL, colPar)
             If sqlReader.Read Then
                 sqlReader.Close()
+
+                sqlPar.DbType = DbType.String
+                sqlPar.Value = obj.NomePaciente
+                sqlPar.ParameterName = "@Nome"
+                colPar.Add(sqlPar)
+                sqlPar.DbType = DbType.Int32
+                sqlPar.Value = obj.IdConvenio
+                sqlPar.ParameterName = "@Convenio"
+                colPar.Add(sqlPar)
+                sqlPar.DbType = DbType.String
+                sqlPar.Value = obj.Celular
+                sqlPar.ParameterName = "@Celular"
+                colPar.Add(sqlPar)
+                sqlPar.DbType = DbType.Date
+                sqlPar.Value = obj.DataNascim
+                sqlPar.ParameterName = "@DataNascim"
+                colPar.Add(sqlPar)
+
                 cn.ExecuteWithParam("update AGENDA_CLINICA Set NOMEPACI=@Nome, CONVENIO=@Convenio, Celular=@Celular, 
                 OBSERVACAO=@DataNascim, STATUS='WA1', TIPO_ATENDIMENTO=2, SECRETARIA=0, 
                 TIPO_ATENDIMENTO_ABRANGE=4, Nacionalidade=0, CNPJCPF=@CPF where id=@id", colPar)
