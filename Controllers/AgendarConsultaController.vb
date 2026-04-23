@@ -62,6 +62,8 @@ Namespace Controllers
                 OBSERVACAO=@DataNascim, STATUS='WA1', TIPO_ATENDIMENTO=2, SECRETARIA=0, 
                 TIPO_ATENDIMENTO_ABRANGE=4, Nacionalidade=0, CNPJCPF=@CPF where id=@id", colPar)
 
+                If cn.MSG <> "" Then Return BadRequest(cn.MSG)
+
                 cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                 EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                 select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
