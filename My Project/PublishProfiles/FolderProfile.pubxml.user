@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\trent\Source\Repos\kleroswebapi\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2026-02-13T23:25:59.1508108Z||;True|2026-01-20T18:47:03.4147048-03:00||;True|2025-09-26T18:58:43.5658257-03:00||;True|2025-08-13T10:34:08.0733504-03:00||;True|2025-08-11T19:20:03.0002921-03:00||;True|2025-07-14T19:25:32.9104338-03:00||;True|2025-07-14T19:05:41.1660620-03:00||;</History>
+    <History>True|2026-04-23T00:06:30.9543799Z||;True|2026-04-22T11:27:20.6023659-03:00||;True|2026-04-16T19:23:24.2154940-03:00||;True|2026-02-13T20:25:59.1508108-03:00||;True|2026-01-20T18:47:03.4147048-03:00||;True|2025-09-26T18:58:43.5658257-03:00||;True|2025-08-13T10:34:08.0733504-03:00||;True|2025-08-11T19:20:03.0002921-03:00||;True|2025-07-14T19:25:32.9104338-03:00||;True|2025-07-14T19:05:41.1660620-03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -82,13 +82,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/19/2025 15:50:47</publishTime>
     </File>
     <File Include="bin/KlerosWebApi.dll">
-      <publishTime>02/13/2026 20:25:57</publishTime>
+      <publishTime>04/22/2026 21:06:25</publishTime>
     </File>
     <File Include="bin/KlerosWebApi.pdb">
-      <publishTime>02/13/2026 20:25:57</publishTime>
+      <publishTime>04/22/2026 21:06:25</publishTime>
     </File>
     <File Include="bin/KlerosWebApi.xml">
-      <publishTime>02/13/2026 20:25:57</publishTime>
+      <publishTime>04/22/2026 21:06:25</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>09/19/2025 15:50:47</publishTime>
@@ -408,6 +408,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/Site.css">
       <publishTime>09/19/2025 15:50:47</publishTime>
     </File>
+    <File Include="Controllers/AgendarConsultaController.vb">
+      <publishTime>04/22/2026 11:15:29</publishTime>
+    </File>
     <File Include="cp1.htm">
       <publishTime>09/19/2025 15:50:47</publishTime>
     </File>
@@ -479,6 +482,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Scripts/modernizr-2.8.3.js">
       <publishTime>09/19/2025 15:50:47</publishTime>
+    </File>
+    <File Include="test.htm">
+      <publishTime>04/22/2026 20:56:14</publishTime>
     </File>
     <File Include="Views/Home/Index.vbhtml">
       <publishTime>09/19/2025 15:50:47</publishTime>

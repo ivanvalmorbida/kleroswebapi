@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Testes</title>
+</head>
+<body>
+    <div id="app" class="container">
+        
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.3/vue-resource.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    logs: [],
+                    Paciente: null,
+                    Sala: null,
+                    intervalId: null,
+                    re: 0
+                };
+            },
+            methods: {
+                async teste() {
+                    try {
+                        this.$http.post('api/agendarconsulta/', {
+                            IdAgenda: 2176966,
+                            IdPaciente:0,
+                            IdConvenio:0,
+                            NomePaciente:'',
+                            Celular:'',
+                            CPFPaciente:'',
+                            DataNascim:'2020-01-01'
+                        }).then(function (res) {
+                            const response = res.body
+                        })
+                    } catch (error) {
+                        console.error("Error loading activities:", error);
+                    }
+                },
+            },
+            async mounted() {
+                this.teste()
+            }
+        });
+    </script>
+</body>
+</html>
