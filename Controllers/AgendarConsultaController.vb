@@ -62,15 +62,17 @@ Namespace Controllers
                 OBSERVACAO=@DataNascim, STATUS='WA1', TIPO_ATENDIMENTO=2, SECRETARIA=0, 
                 TIPO_ATENDIMENTO_ABRANGE=4, Nacionalidade=0, CNPJCPF=@CPF where id=@id", colPar)
 
-                If cn.MSG <> "" Then Return BadRequest(cn.MSG)
-
-                cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
-                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
-                0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: Novo -> WhatsAPP Agenda Consulta' historico, 1 tipo from AGENDA_CLINICA
-                where id=" & obj.IdAgenda)
+                If cn.MSG <> "" Then
+                    Return BadRequest(cn.MSG)
+                Else
+                    cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                        EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
+                        select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
+                        0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: Novo -> WhatsAPP Agenda Consulta' historico, 1 tipo from AGENDA_CLINICA
+                        where id=" & obj.IdAgenda)
+                End If
             Else
-                Return BadRequest("Horario inválido")
+                Return BadRequest("Horario já utilizado")
                 sqlReader.Close()
             End If
 
