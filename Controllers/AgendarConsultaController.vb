@@ -33,6 +33,11 @@ Namespace Controllers
                 sqlReader.Close()
 
                 sqlPar = New SqlParameter
+                sqlPar.DbType = DbType.Int32
+                sqlPar.Value = obj.IdPaciente
+                sqlPar.ParameterName = "@paciente"
+                colPar.Add(sqlPar)
+                sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.String
                 sqlPar.Value = obj.NomePaciente
                 sqlPar.ParameterName = "@Nome"
@@ -58,8 +63,9 @@ Namespace Controllers
                 sqlPar.ParameterName = "@CPF"
                 colPar.Add(sqlPar)
 
-                cn.ExecuteWithParam("update AGENDA_CLINICA Set NOMEPACI=@Nome, CONVENIO=@Convenio, Celular=@Celular, 
-                OBSERVACAO=@DataNascim, STATUS='WA1', TIPO_ATENDIMENTO=2, SECRETARIA=0, 
+                cn.ExecuteWithParam("update AGENDA_CLINICA Set NOMEPACI=@Nome, CONVENIO=@Convenio,
+                Celular=@Celular, PACIENTE=@paciente, 
+                OBSERVACAO=@DataNascim, STATUS='WA3', TIPO_ATENDIMENTO=2, SECRETARIA=0, 
                 TIPO_ATENDIMENTO_ABRANGE=4, Nacionalidade=0, CNPJCPF=@CPF where id=@id", colPar)
 
                 If cn.MSG <> "" Then
