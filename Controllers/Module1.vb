@@ -3,13 +3,19 @@
     Public strSQLHorariosLivres As String = "select id, convert(char, DATA_CONSULTA, 103) as AgendaDataConsulta
             , case when DATEpart(WEEKDAY, DATA_CONSULTA) = 2 then 'Segunda' else case when DATEpart(WEEKDAY, DATA_CONSULTA) = 3 then 'Terça'  else case when DATEpart(WEEKDAY, DATA_CONSULTA) = 4 then 'Quarta' 
             else case when DATEpart(WEEKDAY, DATA_CONSULTA) = 5 then 'Quinta' else case when DATEpart(WEEKDAY, DATA_CONSULTA) = 6 then 'Sexta' end end end end end as AgendaDiaSemana
-            , Período as AgendaPeriodo, Hora as AgendaHora, case when STATUS = '$$$' then 'Horário para Convênio Particular' else '' end as AgendaObservacao
-            from AGENDA_CLINICA
-            inner join medico m on m.CODIGO=MEDICO
+            , ac.Período as AgendaPeriodo, Hora as AgendaHora, case when STATUS = '$$$' then 'Horário para Convênio Particular' else '' end as AgendaObservacao
+            from AGENDA_CLINICA ac
+            left outer join CONSULTAS_CONVENIO cc on cc.MEDICO = ac.MEDICO and cc.CONVENIO = @conv 
+                and cc.PERIODO = 0 and cc.DIA_SEMANA =  DATEpart(WEEKDAY, DATA_CONSULTA) 
+                and cc.TURNO = ac.PERIODO
+            inner join medico m on m.CODIGO=ac.MEDICO
             left outer join PARAMETROS_GERAIS pg on pg.COD_PARTICULAR > 0
-            where medico = @med and DATA_CONSULTA >= getdate()
-            and DATA_CONSULTA <= getdate() + {d}
+            where ac.medico = @med and DATA_CONSULTA >= getdate()
+            and DATA_CONSULTA <= getdate() + @d
             and isnull(NOMEPACI, '') = ''
+            and isnull(cc.quantidade, 99) > (select count(*) as Qtde from AGENDA_CLINICA 
+                            where Medico = @med and DATA_CONSULTA = ac.data_consulta 
+                            and CONVENIO = @conv and PERIODO = ac.periodo)
             order by DATA_CONSULTA, HORA"
 
     Public strSQLConfirmaConsulta As String = "select ID, DATA_CONSULTA, Hora, NOMEPACI, '55' + Celular as Celular

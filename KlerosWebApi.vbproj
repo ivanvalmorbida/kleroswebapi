@@ -192,7 +192,6 @@
     <Compile Include="Controllers\ConfirmaConsultaController.vb" />
     <Compile Include="Controllers\ConfirmaEnvioMsgController.vb" />
     <Compile Include="Controllers\ConvenioWebController.vb" />
-    <Compile Include="Controllers\HorariosLivres15Controller.vb" />
     <Compile Include="Controllers\HorariosLivresController.vb" />
     <Compile Include="Controllers\MedicoWebController.vb" />
     <Compile Include="Controllers\Module1.vb" />

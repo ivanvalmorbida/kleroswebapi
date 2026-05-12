@@ -15,7 +15,7 @@ Namespace Controllers
     Public Class HorariosLivresController
         Inherits ApiController
         ' GET: api/ConvenioWeb
-        Public Function GetValues(ByVal id As Integer) As List(Of cHorariosLivres)
+        Public Function GetValues(ByVal id As Integer, ByVal conv As Integer, dias As Integer) As List(Of cHorariosLivres)
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim r As New List(Of cHorariosLivres)
             Dim sqlPar As New SqlParameter, colPar As New Collection
@@ -25,7 +25,19 @@ Namespace Controllers
             sqlPar.ParameterName = "@med"
             colPar.Add(sqlPar)
 
-            strSQL = strSQLHorariosLivres.Replace("{d}", "8")
+            sqlPar = New SqlParameter
+            sqlPar.DbType = DbType.Int32
+            sqlPar.Value = conv
+            sqlPar.ParameterName = "@conv"
+            colPar.Add(sqlPar)
+
+            sqlPar = New SqlParameter
+            sqlPar.DbType = DbType.Int32
+            sqlPar.Value = dias
+            sqlPar.ParameterName = "@d"
+            colPar.Add(sqlPar)
+
+            strSQL = strSQLHorariosLivres
 
             sqlReader = cn.OpenReaderWithParam(strSQL, colPar)
             While sqlReader.Read
