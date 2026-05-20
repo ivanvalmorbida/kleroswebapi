@@ -11,47 +11,12 @@ Namespace Controllers
     Public Class PacienteChamadaController
         Inherits ApiController
 
-        ' GET: api/PacienteChamada
-        Public Function GetValues() As IEnumerable(Of String)
-            Return New String() {"value1", "value2"}
-        End Function
-
         ' GET: api/PacienteChamada/5
         Public Function GetValue(ByVal id As Integer) As List(Of cPacientePainelChamada)
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim sqlPar As New SqlParameter, colPar As New Collection
             Dim r As New List(Of cPacientePainelChamada)()
 
-            'If Now.Minute Mod 2 = 1 Then
-            '    r.Add(New cPacientePainelChamada() With {
-            '    .Sala = "Sala X",
-            '    .Paciente = "Paciente X"
-            '})
-            'End If
-            'r.Add(New cPacientePainelChamada() With {
-            '    .Sala = "Sala 2",
-            '    .Paciente = "Paciente 01"
-            '})
-            'r.Add(New cPacientePainelChamada() With {
-            '    .Sala = "Sala 2",
-            '    .Paciente = "Paciente 02"
-            '})
-            'r.Add(New cPacientePainelChamada() With {
-            '    .Sala = "Sala 1",
-            '    .Paciente = "Paciente 03"
-            '})
-            'r.Add(New cPacientePainelChamada() With {
-            '    .Sala = "Sala 3",
-            '    .Paciente = "Paciente 04"
-            '})
-            'r.Add(New cPacientePainelChamada() With {
-            '    .Sala = "Sala 2",
-            '    .Paciente = "Paciente 05"
-            '})
-            'r.Add(New cPacientePainelChamada() With {
-            '    .Sala = "Sala 1",
-            '    .Paciente = "Paciente 06"
-            '})
             sqlPar.DbType = DbType.Int32
             sqlPar.Value = id
             sqlPar.ParameterName = "@re"
@@ -78,20 +43,5 @@ Namespace Controllers
             cn.CloseConection()
             Return r
         End Function
-
-        ' POST: api/PacienteChamada
-        Public Sub PostValue(<FromBody()> ByVal value As String)
-
-        End Sub
-
-        ' PUT: api/PacienteChamada/5
-        Public Sub PutValue(ByVal id As Integer, <FromBody()> ByVal value As String)
-
-        End Sub
-
-        ' DELETE: api/PacienteChamada/5
-        Public Sub DeleteValue(ByVal id As Integer)
-
-        End Sub
     End Class
 End Namespace

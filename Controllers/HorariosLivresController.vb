@@ -14,7 +14,7 @@ Namespace Controllers
     End Class
     Public Class HorariosLivresController
         Inherits ApiController
-        ' GET: api/ConvenioWeb
+        ' GET: api/HorariosLivres
         Public Function GetValues(ByVal id As Integer, ByVal conv As Integer, dias As Integer) As List(Of cHorariosLivres)
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim r As New List(Of cHorariosLivres)

@@ -11,16 +11,6 @@ Namespace Controllers
     Public Class ConfirmaConsultaController
         Inherits ApiController
 
-        ' GET: api/ConfirmaConsulta
-        Public Function GetValues() As IEnumerable(Of String)
-            Return New String() {"value1", "value2"}
-        End Function
-
-        ' GET: api/ConfirmaConsulta/5
-        Public Function GetValue(ByVal id As Integer) As String
-            Return "value"
-        End Function
-
         ' POST: api/ConfirmaConsulta
         Public Sub PostValue(<FromBody()> ByVal obj As cConfirmacaoConsulta)
             Dim cn As New Conexao
@@ -51,16 +41,6 @@ Namespace Controllers
                 0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Cancelou ' historico, 1 tipo from AGENDA_CLINICA
                 where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and id=" & obj.id)
             End If
-        End Sub
-
-        ' PUT: api/ConfirmaConsulta/5
-        Public Sub PutValue(ByVal id As Integer, <FromBody()> ByVal value As String)
-
-        End Sub
-
-        ' DELETE: api/ConfirmaConsulta/5
-        Public Sub DeleteValue(ByVal id As Integer)
-
         End Sub
     End Class
 End Namespace

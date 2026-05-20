@@ -12,12 +12,16 @@ Namespace Controllers
         Inherits ApiController
 
         ' GET: api/MedicoWeb
-        Public Function GetValues() As List(Of cMedicoWeb)
+        Public Function GetValues(Nasc As Date, Conv As Int32) As List(Of cMedicoWeb)
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim r As New List(Of cMedicoWeb)
 
-            strSQL = "Select codigo as MedicoCodigo, nome as MedicoNome, isnull(EspecialidadeAgendaWeb, '') as MedicoEspecialidade
-                from medico m where Tipo = 'M' and Ativo=-1 and AgendaWeb = -1 order by nome"
+            Dim i As Integer = DateDiff(DateInterval.Year, Nasc, Now)
+
+            strSQL = $"Select codigo as MedicoCodigo, nome as MedicoNome, isnull(EspecialidadeAgendaWeb, '') as MedicoEspecialidade
+                from medico m where Tipo='M' and (SELECT isnull(sum(QUANTIDADE), 99) as quantidade From CONSULTAS_CONVENIO 
+                    Where MEDICO = m.codigo and TURNO IN(1,2) and CONVENIO={Conv})> 0
+                and IdadeMinimaPaciente<={i} and Ativo=-1 and AgendaWeb = -1 order by nome"
 
             sqlReader = cn.OpenReader(strSQL)
             While sqlReader.Read

@@ -12,16 +12,6 @@ Namespace Controllers
     Public Class ConfirmaEnvioMsgController
         Inherits ApiController
 
-        ' GET: api/ConfirmaEnvioMsg
-        Public Function GetValues() As IEnumerable(Of String)
-            Return New String() {"value1", "value2"}
-        End Function
-
-        ' GET: api/ConfirmaEnvioMsg/5
-        Public Function GetValue(ByVal id As Integer) As String
-            Return "value"
-        End Function
-
         ' POST: api/ConfirmaEnvioMsg
         Public Sub PostValue(<FromBody()> ByVal obj As cConfirmaEnvioMsg)
             Dim cn As New Conexao
@@ -44,16 +34,6 @@ Namespace Controllers
                 0 funcionario, 'Novo -> WhatsAPP erro 48h Msg: " & obj.erro & "' historico, 1 tipo 
                 from AGENDA_CLINICA where id=" & obj.id)
             End If
-        End Sub
-
-        ' PUT: api/ConfirmaEnvioMsg/5
-        Public Sub PutValue(ByVal id As Integer, <FromBody()> ByVal value As String)
-
-        End Sub
-
-        ' DELETE: api/ConfirmaEnvioMsg/5
-        Public Sub DeleteValue(ByVal id As Integer)
-
         End Sub
     End Class
 End Namespace
