@@ -19,8 +19,11 @@ Namespace Controllers
             Dim i As Integer = DateDiff(DateInterval.Year, Nasc, Now)
 
             strSQL = $"Select codigo as MedicoCodigo, nome as MedicoNome, isnull(EspecialidadeAgendaWeb, '') as MedicoEspecialidade
-                from medico m where Tipo='M' and (SELECT isnull(sum(QUANTIDADE), 99) as quantidade From CONSULTAS_CONVENIO 
-                    Where MEDICO = m.codigo and TURNO IN(1,2) and CONVENIO={Conv})> 0
+                from medico m where Tipo='M' 
+                    and (isnull((SELECT QUANTIDADE From CONSULTAS_CONVENIO 
+                        Where MEDICO=m.codigo and TURNO=1 and CONVENIO={Conv}),99)
+                    + isnull((SELECT QUANTIDADE From CONSULTAS_CONVENIO 
+                        Where MEDICO=m.codigo and TURNO=2 and CONVENIO={Conv}),99))>0
                 and IdadeMinimaPaciente<={i} and Ativo=-1 and AgendaWeb = -1 order by nome"
 
             sqlReader = cn.OpenReader(strSQL)
