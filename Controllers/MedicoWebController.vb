@@ -14,9 +14,11 @@ Namespace Controllers
         ' GET: api/MedicoWeb
         Public Function GetValues(Nasc As Date, Conv As Int32) As List(Of cMedicoWeb)
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
-            Dim r As New List(Of cMedicoWeb)
+            Dim r As New List(Of cMedicoWeb), datat As Date
 
             Dim i As Integer = DateDiff(DateInterval.Year, Nasc, Now)
+            datat = DateTime.Parse(Day(Nasc) & "/" & Month(Nasc) & "/" & Year(Now))
+            If datat > Now Then i = i - 1
 
             strSQL = $"Select codigo as MedicoCodigo, NomeAgendaWeb as MedicoNome, isnull(EspecialidadeAgendaWeb, '') as MedicoEspecialidade
                 from medico m where Tipo='M' 
