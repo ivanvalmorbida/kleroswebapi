@@ -16,6 +16,42 @@ Namespace Controllers
             Public Property DataNascim As Date
         End Class
 
+        Public Class cAgendarConsultaRet
+            Public Property IdAgenda As Integer
+            Public Property MedicoNome As String
+            Public Property Convenio As String
+            Public Property NomePaciente As String
+            Public Property Celular As String
+            Public Property CPFPaciente As String
+            Public Property DataConsulta As Date
+        End Class
+
+        Public Function GetValues(IdAgenda As Integer) As cAgendarConsultaRet
+            Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
+            Dim r As New cAgendarConsultaRet
+
+            strSQL = $"select ID, convert(char, DATA_CONSULTA, 103) as DataConsulta, Hora, NOMEPACI, '55' + Celular as Celular
+                ,m.NOME as MedicoNome, co.APELIDO as Convenio, ac.CNPJCPF
+                from Agenda_clinica ac
+                inner join medico m on m.codigo = ac.medico	
+                inner join convenio co on co.CODIGO=CONVENIO
+                where id={IdAgenda}"
+
+            sqlReader = cn.OpenReader(strSQL)
+            If sqlReader.Read Then
+                r.IdAgenda = sqlReader("ID").ToString()
+                r.Celular = sqlReader("Celular").ToString()
+                r.DataConsulta = sqlReader("DataConsulta").ToString()
+                r.NomePaciente = sqlReader("NOMEPACI").ToString()
+                r.MedicoNome = sqlReader("MedicoNome").ToString()
+                r.Convenio = sqlReader("Convenio").ToString()
+                r.CPFPaciente = sqlReader("CNPJCPF").ToString()
+            End If
+            sqlReader.Close()
+            cn.CloseConection()
+            Return r
+        End Function
+
         Public Function PostValue(ByVal obj As cAgendarConsulta) As IHttpActionResult
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim sqlPar As New SqlParameter, colPar As New Collection
