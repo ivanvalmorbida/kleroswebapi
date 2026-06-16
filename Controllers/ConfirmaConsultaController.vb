@@ -27,6 +27,12 @@ Namespace Controllers
 
             Else
                 'No retorno Cancelando consulta
+                cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
+                select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
+                0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Cancelou ' historico, 1 tipo from AGENDA_CLINICA
+                where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and id=" & obj.id)
+
                 cn.Execute("Update AGENDA_CLINICA set NOMEPACI='',PACIENTE=0,TIPO_ATENDIMENTO=0,FONEPACI='',
                 TONOMETRIA=0,MAPRETINA=0, ACUIDADE = 0,CONVENIO=0, STATUS='', 
                 SECRETARIA=0,OBSERVACAO='',REQUISICAO=0,REQUISICAO_TONO=0,REQUISICAO_MAP=0, 
@@ -35,11 +41,6 @@ Namespace Controllers
                 REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, CodigoClube=0, EsteticistaAtividade=0, 
                 CONVENIO_PLANO='' Where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and ID =" & obj.id)
 
-                cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
-                EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
-                select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
-                0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Cancelou ' historico, 1 tipo from AGENDA_CLINICA
-                where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and id=" & obj.id)
             End If
         End Sub
     End Class

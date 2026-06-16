@@ -29,7 +29,7 @@ Namespace Controllers
 
             strSQL = "select p.codigo as PacienteCodigo, p.NOME as PacienteNome, 
                 DATA_NASCIM as PacienteDataNascim, celular as PacienteCelular, 
-                c.codigo as ConvenioCodigo, c.nome as ConvenioNome 
+                case when c.ativo = 1 then  c.codigo else 0 end as ConvenioCodigo, case when c.ativo = 1 then c.nome else '' end as ConvenioNome  
                 from paciente p
                 inner join convenio c on c.codigo = CONVENIO
                 where CNPJCPF = @cpf"

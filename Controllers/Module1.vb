@@ -1,6 +1,6 @@
 ﻿Module Module1
 
-    Public strSQLHorariosLivres As String = "select id, convert(char, DATA_CONSULTA, 103) as AgendaDataConsulta
+    Public strSQLHorariosLivres As String = "select top 5 id, convert(char, DATA_CONSULTA, 103) as AgendaDataConsulta
             , case when DATEpart(WEEKDAY, DATA_CONSULTA) = 2 then 'Segunda' else case when DATEpart(WEEKDAY, DATA_CONSULTA) = 3 then 'Terça'  else case when DATEpart(WEEKDAY, DATA_CONSULTA) = 4 then 'Quarta' 
             else case when DATEpart(WEEKDAY, DATA_CONSULTA) = 5 then 'Quinta' else case when DATEpart(WEEKDAY, DATA_CONSULTA) = 6 then 'Sexta' end end end end end as AgendaDiaSemana
             , ac.Período as AgendaPeriodo, Hora as AgendaHora, case when STATUS = '$$$' then 'Horário para Convênio Particular' else '' end as AgendaObservacao
@@ -13,6 +13,8 @@
             where ac.medico = @med and DATA_CONSULTA >= getdate()
             and DATA_CONSULTA <= getdate() + @d
             and isnull(NOMEPACI, '') = ''
+            and isnull(STATUS, '') <> 'RT'
+            and ((pg.COD_PARTICULAR <> @conv and ac.STATUS <> '$$$') or (pg.COD_PARTICULAR = @conv))
             and isnull(cc.quantidade, 99) > (select count(*) as Qtde from AGENDA_CLINICA 
                             where Medico = @med and DATA_CONSULTA = ac.data_consulta 
                             and CONVENIO = @conv and PERIODO = ac.periodo)
