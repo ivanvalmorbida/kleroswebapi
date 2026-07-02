@@ -38,8 +38,8 @@ Namespace Controllers
                 SECRETARIA=0,OBSERVACAO='',REQUISICAO=0,REQUISICAO_TONO=0,REQUISICAO_MAP=0, 
                 REQUISICAO_ACUIDADE = 0,UTILIZADO=0, TIPO_LENTE_USO=0, TIPO_ATENDIMENTO_ABRANGE = -1, 
                 AUTORIZACAO = '', RG = '',GUIA=0, NRCONVENIO='', GONIOSCOPIA=0, MOTILIDADE= 0, 
-                REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, CodigoClube=0, EsteticistaAtividade=0, 
-                CONVENIO_PLANO='' Where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and ID =" & obj.id)
+                REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, EsteticistaAtividade=0 
+                Where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and ID =" & obj.id)
 
             End If
         End Sub
