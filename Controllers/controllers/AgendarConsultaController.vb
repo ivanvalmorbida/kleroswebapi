@@ -55,98 +55,63 @@ Namespace Controllers
         Public Function PostValue(ByVal obj As cAgendarConsulta) As IHttpActionResult
             Dim sqlReader As SqlDataReader, strSQL As String, cn As New Conexao
             Dim sqlPar As New SqlParameter, colPar As New Collection
-            Dim r As New cPacienteCPF, colParX As New Collection
+            Dim r As New cPacienteCPF
 
             sqlPar.DbType = DbType.String
             sqlPar.Value = obj.IdAgenda
             sqlPar.ParameterName = "@id"
             colPar.Add(sqlPar)
 
-            strSQL = "Select MEDICO, DATA_CONSULTA from Agenda_Clinica where id=@id And isnull(NomePaci, '') = ''"
+            strSQL = "Select id from Agenda_Clinica where id=@id And isnull(NomePaci, '') = ''"
 
             sqlReader = cn.OpenReaderWithParam(strSQL, colPar)
             If sqlReader.Read Then
+                sqlReader.Close()
+
                 sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.Int32
                 sqlPar.Value = obj.IdPaciente
                 sqlPar.ParameterName = "@paciente"
-                colParX.Add(sqlPar)
+                colPar.Add(sqlPar)
+                sqlPar = New SqlParameter
+                sqlPar.DbType = DbType.String
+                sqlPar.Value = obj.NomePaciente
+                sqlPar.ParameterName = "@Nome"
+                colPar.Add(sqlPar)
                 sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.Int32
                 sqlPar.Value = obj.IdConvenio
                 sqlPar.ParameterName = "@Convenio"
-                colParX.Add(sqlPar)
+                colPar.Add(sqlPar)
                 sqlPar = New SqlParameter
-                sqlPar.DbType = DbType.Int32
-                sqlPar.Value = sqlReader("medico")
-                sqlPar.ParameterName = "@medico"
-                colParX.Add(sqlPar)
+                sqlPar.DbType = DbType.String
+                sqlPar.Value = obj.Celular
+                sqlPar.ParameterName = "@Celular"
+                colPar.Add(sqlPar)
                 sqlPar = New SqlParameter
                 sqlPar.DbType = DbType.Date
-                sqlPar.Value = sqlReader("DATA_CONSULTA")
-                sqlPar.ParameterName = "@Data"
-                colParX.Add(sqlPar)
+                sqlPar.Value = obj.DataNascim
+                sqlPar.ParameterName = "@DataNascim"
+                colPar.Add(sqlPar)
+                sqlPar = New SqlParameter
+                sqlPar.DbType = DbType.String
+                sqlPar.Value = obj.CPFPaciente
+                sqlPar.ParameterName = "@CPF"
+                colPar.Add(sqlPar)
 
-                sqlReader.Close()
-
-                strSQL = "select top 1 data_consulta from CONSULTA_GERAL  cg
-                    inner join convenio c on c.CODIGO = cg.CONVENIO
-                    where cg.PACIENTE=@paciente And cg.Convenio=@convenio 
-                    and cg.medico=@medico And cg.TIPO_CONSULTA in (1, 2, 6) 
-                    and data_consulta + iif(isnull(c.DiasRetornoConsulta, 0) = 0, 30,
-                    iif(c.DiasRetornoConsulta = 0, 30, c.DiasRetornoConsulta)) > @data"
-                sqlReader = cn.OpenReaderWithParam(strSQL, colParX)
-                If sqlReader.Read Then
-                    Return BadRequest("Consulta em periodo de retorno")
-                    sqlReader.Close()
-
-                Else
-                    sqlReader.Close()
-                    sqlPar = New SqlParameter
-                    sqlPar.DbType = DbType.Int32
-                    sqlPar.Value = obj.IdPaciente
-                    sqlPar.ParameterName = "@paciente"
-                    colPar.Add(sqlPar)
-                    sqlPar = New SqlParameter
-                    sqlPar.DbType = DbType.String
-                    sqlPar.Value = obj.NomePaciente
-                    sqlPar.ParameterName = "@Nome"
-                    colPar.Add(sqlPar)
-                    sqlPar = New SqlParameter
-                    sqlPar.DbType = DbType.Int32
-                    sqlPar.Value = obj.IdConvenio
-                    sqlPar.ParameterName = "@Convenio"
-                    colPar.Add(sqlPar)
-                    sqlPar = New SqlParameter
-                    sqlPar.DbType = DbType.String
-                    sqlPar.Value = obj.Celular
-                    sqlPar.ParameterName = "@Celular"
-                    colPar.Add(sqlPar)
-                    sqlPar = New SqlParameter
-                    sqlPar.DbType = DbType.Date
-                    sqlPar.Value = obj.DataNascim
-                    sqlPar.ParameterName = "@DataNascim"
-                    colPar.Add(sqlPar)
-                    sqlPar = New SqlParameter
-                    sqlPar.DbType = DbType.String
-                    sqlPar.Value = obj.CPFPaciente
-                    sqlPar.ParameterName = "@CPF"
-                    colPar.Add(sqlPar)
-
-                    cn.ExecuteWithParam("update AGENDA_CLINICA Set NOMEPACI=@Nome, CONVENIO=@Convenio,
+                cn.ExecuteWithParam("update AGENDA_CLINICA Set NOMEPACI=@Nome, CONVENIO=@Convenio,
                 Celular=@Celular, PACIENTE=@paciente, 
                 OBSERVACAO=@DataNascim, STATUS='WA3', TIPO_ATENDIMENTO=2, SECRETARIA=0, 
                 TIPO_ATENDIMENTO_ABRANGE=4, Nacionalidade=0, CNPJCPF=@CPF where id=@id", colPar)
 
-                    If cn.MSG <> "" Then
-                        Return BadRequest(cn.MSG)
-                    Else
-                        cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
+                If cn.MSG <> "" Then
+                    Return BadRequest(cn.MSG)
+                Else
+                    cn.Execute("insert into TRILHA_AGENDA (MEDICO, Data, PERIODO, HORA, 
                         EVENTO, DATA_ALTERACAO, FUNCIONARIO, HISTORICO, TipoAgenda)
                         select MEDICO, DATA_CONSULTA, PERIODO, HORA, 4 evento, getdate() alterado, 
                         0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: Novo -> WhatsAPP Agenda Consulta' historico, 1 tipo from AGENDA_CLINICA
                         where id=" & obj.IdAgenda)
-                    End If
                 End If
             Else
                 Return BadRequest("Horario já utilizado")
