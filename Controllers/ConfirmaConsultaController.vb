@@ -33,13 +33,15 @@ Namespace Controllers
                 0 funcionario, 'Paciente: '+NOMEPACI+' Motivo: WhatsAPP Cancelou ' historico, 1 tipo from AGENDA_CLINICA
                 where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and id=" & obj.id)
 
-                cn.Execute("Update AGENDA_CLINICA set NOMEPACI='',PACIENTE=0,TIPO_ATENDIMENTO=0,FONEPACI='',
-                TONOMETRIA=0,MAPRETINA=0, ACUIDADE = 0,CONVENIO=0, STATUS='', 
+                cn.Execute("Update a set NOMEPACI='',PACIENTE=0,TIPO_ATENDIMENTO=0,FONEPACI='',
+                TONOMETRIA=0,MAPRETINA=0, ACUIDADE = 0,CONVENIO=0, STATUS=isnull(rtrim(h.CONVENIO), ''), 
                 SECRETARIA=0,OBSERVACAO='',REQUISICAO=0,REQUISICAO_TONO=0,REQUISICAO_MAP=0, 
                 REQUISICAO_ACUIDADE = 0,UTILIZADO=0, TIPO_LENTE_USO=0, TIPO_ATENDIMENTO_ABRANGE = -1, 
                 AUTORIZACAO = '', RG = '',GUIA=0, NRCONVENIO='', GONIOSCOPIA=0, MOTILIDADE= 0, 
                 REQUISICAO_GONIOSCOPIA= 0, REQUISICAO_MOTILIDADE= 0, EsteticistaAtividade=0 
-                Where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and ID =" & obj.id)
+                from AGENDA_CLINICA a left join HORARIO h on h.MEDICO=a.MEDICO AND h.PERIODO=a.Periodo 
+                AND h.DIASEM=datepart(w,a.DATA_CONSULTA) AND h.HORA=a.Hora
+                Where STATUS not in('FCH','FAT','AGU','ESP','PRE','CON') and ID=" & obj.id)
 
             End If
         End Sub
